@@ -2,7 +2,7 @@ FROM docker:latest
 
 MAINTAINER Mo Gusbi <mo.gusbi@leighton.com>
 
-COPY tools/ecs-check /usr/local/bin/
+COPY tools /usr/local/bin/
 
 RUN apk add --update curl python py-pip
 
