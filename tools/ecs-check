@@ -1,0 +1,26 @@
+#!/bin/bash
+
+PROCESS_COUNT=`ecs-cli ps | grep -v STOPPED | wc -l`
+PROCESS_WAIT_COUNT="0"
+
+sleep 10
+
+while [[ "$PROCESS_COUNT" -gt 1 ]]; do
+  PROCESS_COUNT=`ecs-cli ps | grep -v STOPPED | wc -l`
+  PROCESS_WAIT_COUNT=$[$PROCESS_WAIT_COUNT+1]
+
+  if [[ "$PROCESS_WAIT_COUNT" -gt 15 ]]; then
+    echo "${PROCESS_COUNT} services are still running. Exiting..."
+    exit 1
+  else
+    echo "${PROCESS_COUNT} services are still running. Waiting another 10 seconds..."
+
+    ecs-cli compose --project-name $CLUSTER_NAME service stop || true
+
+    ecs-cli compose --project-name $CLUSTER_NAME service rm || true
+
+    sleep 10
+  fi
+done
+
+echo "Ready to update..."
