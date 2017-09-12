@@ -1,10 +1,10 @@
-FROM python:3-alpine
+FROM docker:latest
 
 MAINTAINER Mo Gusbi <mo.gusbi@leighton.com>
 
 COPY tools/ecs-check /usr/local/bin/
 
-RUN apk add --update curl
+RUN apk add --update curl python py-pip
 
 RUN curl -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-linux-amd64-latest
 
