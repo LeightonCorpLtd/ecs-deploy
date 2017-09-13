@@ -11,3 +11,5 @@ RUN curl -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-c
 RUN chmod +x /usr/local/bin/ecs-check
 
 RUN chmod +x /usr/local/bin/ecs-cli
+
+RUN ls /usr/local/bin/
